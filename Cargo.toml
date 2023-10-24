@@ -1,0 +1,29 @@
+[package]
+edition = "2021"
+name = "gpt-partition"
+version = "0.1.2"
+authors = ["funh2029 <funh2029@outlook.com>"]
+description = "GptPartitionCursor implements the Read + Write + Seek + Debug. It's used for backing up or restoring partition images, such as in embedded upgrades."
+repository = "https://github.com/rust-org/lib-gpt-partition"
+readme = "README.md"
+license = "LGPL-3.0"
+keywords = ["reader", "writer", "partition", "GPT", "GptPartition"]
+
+[dependencies]
+gpt = "^3.0.0"
+
+# gpt_header_fixup features dependencies
+crc32fast = {version = "^1.0.0", optional = true}
+log = {version = ">=0", optional = true}
+libc = {version = ">=0", optional = true}
+
+[patch.crates-io]
+# https://github.com/Quyzi/gpt/issues/89
+gpt = {git = "https://github.com/soerenmeier/gpt", branch = "allow_faulty_header"}
+
+[features]
+gpt_header_fixup = ["crc32fast", "log", "libc"]
+
+[[example]]
+name = "info"
+path = "examples/info.rs"

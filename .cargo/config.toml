@@ -1,0 +1,27 @@
+[build]
+rustflags = "-Ctarget-feature=+crt-static"
+target = "x86_64-unknown-linux-gnu"
+
+[target.aarch64-unknown-linux-musl]
+rustflags = "-Ctarget-feature=+crt-static" # default
+linker = "aarch64-linux-musl-ld"
+
+[target.arm-unknown-linux-musleabi]
+rustflags = "-Ctarget-feature=+crt-static"
+linker = "arm-linux-musleabi-ld"
+
+[target.aarch64-unknown-linux-gnu]
+rustflags = "-Ctarget-feature=+crt-static"
+linker = "aarch64-linux-gnu-gcc"
+
+[alias]
+build_arm = "build --target aarch64-unknown-linux-musl" # rustup target add aarch64-unknown-linux-musl
+test_arm = "test --target aarch64-unknown-linux-musl" # rustup target add aarch64-unknown-linux-musl
+build_arm32 = "build --target arm-unknown-linux-musleabi" # rustup target add arm-unknown-linux-musleabi
+test_arm32 = "test --target arm-unknown-linux-musleabi" # rustup target add arm-unknown-linux-musleabi
+
+# ---------------------------------------------
+# apt install gcc-aarch64-linux-gnu
+# rustup target add aarch64-unknown-linux-gnu
+# ---------------------------------------------
+build_arm64 = "build --target aarch64-unknown-linux-gnu"
